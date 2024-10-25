@@ -31,6 +31,14 @@ public class CategoriaServiceImpl implements CategoriaService{
     }
 
     @Override
+    public Categoria findByNombre(String nombre) {
+        Optional<Categoria> categoriaOptional = categoriaRepository.findByNombre(nombre);
+        return categoriaOptional.orElse(null);
+    }
+
+
+
+    @Override
     public Categoria findOrCreateCategoria(CategoriaDto categoriaDto) {
         Optional<Categoria> existCategoria = categoriaRepository.findByNombre(categoriaDto.nombre());
 
@@ -40,5 +48,10 @@ public class CategoriaServiceImpl implements CategoriaService{
             Categoria createCategoria = categoriaMapper.categoriaDtoToCategoria(categoriaDto);
             return categoriaRepository.save(createCategoria);
         }
+    }
+
+    @Override
+    public Optional<Categoria> findCategoriaByNombre(String categoriaNombre) {
+        return categoriaRepository.findByNombre(categoriaNombre);
     }
 }

@@ -10,6 +10,7 @@ import com.info.app.gestionrecetas.repository.receta.RecetaRepository;
 import com.info.app.gestionrecetas.service.categoria.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -52,10 +53,27 @@ public class RecetaServiceImpl implements RecetaService{
     }
 
     @Override
-    public List<RecetaDto> getAllRecetas() {
+    public List<RecetaDto> getAllRecetas(String categoriaNombre) {
+
+        if(StringUtils.hasText(categoriaNombre)){
+            Optional<Categoria> categoriaOpt = categoriaService.findCategoriaByNombre(categoriaNombre);
+            if(categoriaOpt.isPresent()){
+                Categoria categoria = categoriaOpt.get();
+                return recetaRepository.findBycategoriaLike(categoria)
+                        .stream()
+                        .map(receta -> recetaMapper.recetaToRecetaDto(receta))
+                        .toList();
+            }
+        }else {
+            return recetaRepository.findAll().stream()
+                    .map( receta -> recetaMapper.recetaToRecetaDto(receta))
+                    .toList();
+        }
+
         return recetaRepository.findAll().stream()
                 .map( receta -> recetaMapper.recetaToRecetaDto(receta))
                 .toList();
+
     }
 
     @Override
@@ -71,5 +89,16 @@ public class RecetaServiceImpl implements RecetaService{
                 recetaMapper.recetaToRecetaCreatedDto(recetaRepository.save(nuevaReceta))
         );
 
+    }
+
+    @Override
+    public boolean deleteReceta(UUID idReceta) {
+
+        if(recetaRepository.existsById(idReceta)){
+
+            recetaRepository.deleteById(idReceta);
+            return true;
+        }
+        return false;
     }
 }

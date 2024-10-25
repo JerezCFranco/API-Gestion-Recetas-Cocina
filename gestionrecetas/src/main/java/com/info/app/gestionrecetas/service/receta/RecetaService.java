@@ -15,9 +15,11 @@ public interface RecetaService {
 
     Optional<RecetaDto> getRecetaDtoById(UUID uuid);
 
-    List<RecetaDto> getAllRecetas();
-
     Optional<RecetaCreatedDto> createReceta(RecetaCreateDto recetaCreateDto);
 
-    //Optional<> createReceta()
+
+
+    List<RecetaDto> getAllRecetas(String categoriaNombre);
+
+    boolean deleteReceta(UUID idReceta);
 }

@@ -1,5 +1,6 @@
 package com.info.app.gestionrecetas.controller.receta;
 
+import com.info.app.gestionrecetas.domain.Categoria;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreateDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreatedDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaDto;
@@ -22,9 +23,11 @@ public class RecetaController {
     private RecetaService recetaService;
 
     @GetMapping()
-    public List<RecetaDto> getAllRecetas(){
+    public List<RecetaDto> getAllRecetas(
+            @RequestParam(required = false, name = "categoria")String categoria
+    ){
 
-        return recetaService.getAllRecetas();
+        return recetaService.getAllRecetas(categoria);
     }
 
     @GetMapping("/{idReceta}")
@@ -49,6 +52,21 @@ public class RecetaController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(recetaCreatedDto.get());
+    }
+
+    @DeleteMapping("{idReceta}")
+    public ResponseEntity<?> deleteReceta(@PathVariable UUID idReceta){
+
+        boolean isRecetaDeleted = recetaService.deleteReceta(idReceta);
+
+        if(isRecetaDeleted){
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }

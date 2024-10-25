@@ -4,9 +4,11 @@ import com.info.app.gestionrecetas.domain.Ingrediente;
 import com.info.app.gestionrecetas.domain.Paso;
 import com.info.app.gestionrecetas.domain.Receta;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
+import com.info.app.gestionrecetas.dto.paso.PasoUpdatedDto;
 import com.info.app.gestionrecetas.mappers.ingrediente.IngredienteMapper;
 import com.info.app.gestionrecetas.mappers.paso.PasoMapper;
 import com.info.app.gestionrecetas.repository.paso.PasoRepository;
+import com.info.app.gestionrecetas.repository.receta.RecetaRepository;
 import com.info.app.gestionrecetas.service.ingrediente.IngredienteService;
 import com.info.app.gestionrecetas.service.receta.RecetaService;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +28,8 @@ public class PasoServiceImpl implements PasoService{
     private PasoRepository pasoRepository;
 
     private RecetaService recetaService;
+
+    private RecetaRepository recetaRepository;
 
     private IngredienteService ingredienteService;
 
@@ -63,6 +68,32 @@ public class PasoServiceImpl implements PasoService{
 
             return Optional.of(pasoRepository.save(createPaso));
         }
+
+    }
+
+    @Override
+    public Optional<Paso> updatePaso(UUID idPaso, UUID idReceta, PasoUpdatedDto pasoUpdatedDto) {
+
+        Optional<Receta> recetaOpt = recetaRepository.findById(idReceta);
+
+        if(recetaOpt.isPresent()){
+            Receta receta = recetaOpt.get();
+            Optional<Paso> pasoOpt = receta.getListaPasos()
+                    .stream()
+                    .filter(paso -> paso.getId().equals(idPaso))
+                    .findFirst();
+
+            if(pasoOpt.isPresent()){
+                Paso paso = pasoOpt.get();
+                paso.setDescripcion(pasoUpdatedDto.descripcion());
+                paso.setTiempoEstimado(pasoUpdatedDto.tiempoEstimado());
+                paso.setEsOpcional(pasoUpdatedDto.esOpcional());
+
+                return Optional.of(pasoRepository.save(paso));
+            }
+
+        }
+        return Optional.empty();
 
     }
 }

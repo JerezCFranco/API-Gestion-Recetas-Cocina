@@ -1,6 +1,7 @@
 package com.info.app.gestionrecetas.mappers.paso;
 
 import com.info.app.gestionrecetas.domain.Paso;
+import com.info.app.gestionrecetas.dto.paso.PasoCreatedDto;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
 
 public interface PasoMapper {
@@ -8,4 +9,6 @@ public interface PasoMapper {
     Paso pasoDtoToPaso(PasoDto pasoDto);
 
     PasoDto pasoToPasoDto(Paso paso);
+
+    PasoCreatedDto pasoToPasoCreatedDto(Paso paso);
 }

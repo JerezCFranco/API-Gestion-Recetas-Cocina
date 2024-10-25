@@ -2,6 +2,7 @@ package com.info.app.gestionrecetas.mappers.paso;
 
 import com.info.app.gestionrecetas.domain.Ingrediente;
 import com.info.app.gestionrecetas.domain.Paso;
+import com.info.app.gestionrecetas.dto.paso.PasoCreatedDto;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
 import com.info.app.gestionrecetas.mappers.ingrediente.IngredienteMapper;
 import com.info.app.gestionrecetas.service.ingrediente.IngredienteService;
@@ -48,6 +49,22 @@ public class PasoMapperImpl implements PasoMapper{
         }
 
         return new PasoDto(
+                paso.getNombre(),
+                paso.getDescripcion(),
+                paso.getTiempoEstimado(),
+                paso.getIngredientes()
+                        .stream()
+                        .map(ingredienteMapper::ingredienteToIngredienteDto)
+                        .collect(Collectors.toList()),
+                paso.isEsOpcional(),
+                paso.getReceta().getId()
+        );
+    }
+
+    @Override
+    public PasoCreatedDto pasoToPasoCreatedDto(Paso paso) {
+        return new PasoCreatedDto(
+                paso.getId(),
                 paso.getNombre(),
                 paso.getDescripcion(),
                 paso.getTiempoEstimado(),

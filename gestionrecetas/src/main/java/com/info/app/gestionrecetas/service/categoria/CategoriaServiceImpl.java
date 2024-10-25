@@ -9,6 +9,8 @@ import com.info.app.gestionrecetas.service.receta.RecetaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CategoriaServiceImpl implements CategoriaService{
@@ -16,8 +18,6 @@ public class CategoriaServiceImpl implements CategoriaService{
     private CategoriaMapper categoriaMapper;
 
     private CategoriaRepository categoriaRepository;
-
-    private RecetaService recetaService;
 
     @Override
     public CategoriaDto createCategoria(CategoriaDto categoriaDto) {
@@ -30,9 +30,15 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     }
 
-    /*@Override
-    public CategoriaDto findOrCreateCategoria(String categoriaNombre) {
-        Categoria createCategoria = categoriaRepository.findByNombre(categoriaNombre)
-                .orElseGet(() -> categoriaRepository.save(new Categoria()));
-    }*/
+    @Override
+    public Categoria findOrCreateCategoria(CategoriaDto categoriaDto) {
+        Optional<Categoria> existCategoria = categoriaRepository.findByNombre(categoriaDto.nombre());
+
+        if(existCategoria.isPresent()){
+            return existCategoria.get();
+        }else{
+            Categoria createCategoria = categoriaMapper.categoriaDtoToCategoria(categoriaDto);
+            return categoriaRepository.save(createCategoria);
+        }
+    }
 }

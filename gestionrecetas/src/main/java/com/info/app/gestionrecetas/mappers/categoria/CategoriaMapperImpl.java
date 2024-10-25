@@ -1,6 +1,7 @@
 package com.info.app.gestionrecetas.mappers.categoria;
 
 import com.info.app.gestionrecetas.domain.Categoria;
+import com.info.app.gestionrecetas.dto.categoria.CategoriaCreatedDto;
 import com.info.app.gestionrecetas.dto.categoria.CategoriaDto;
 import com.info.app.gestionrecetas.mappers.receta.RecetaMapper;
 import lombok.AllArgsConstructor;
@@ -39,5 +40,15 @@ public class CategoriaMapperImpl implements CategoriaMapper{
                         .toList()
                         : Collections.emptyList()*/
         );
+    }
+
+    @Override
+    public CategoriaCreatedDto categoriaToCategoriaCreatedDto(Categoria categoria) {
+
+        return new CategoriaCreatedDto(
+                categoria.getId(),
+                categoria.getNombre()
+        );
+
     }
 }

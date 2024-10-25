@@ -51,12 +51,12 @@ public class RecetaMapperImpl implements RecetaMapper{
                 receta.getNombre(),
                 receta.getDescripcion(),
                 receta.getDificultad(),
-                categoriaMapper.categoriaToCategoriaDto(receta.getCategoria()),
+                categoriaMapper.categoriaToCategoriaCreatedDto(receta.getCategoria()),
                 receta.getListaPasos() != null
                         ? receta.getListaPasos()
-                        .stream()
-                        .map( paso -> pasoMapper.pasoToPasoDto(paso))
-                        .toList()
+                            .stream()
+                            .map( paso -> pasoMapper.pasoToPasoCreatedDto(paso))
+                            .toList()
                         : Collections.emptyList()
         );
     }
@@ -83,12 +83,14 @@ public class RecetaMapperImpl implements RecetaMapper{
                 receta.getNombre(),
                 receta.getDescripcion(),
                 receta.getDificultad(),
-                null,//categoriaMapper.categoriaToCategoriaDto(receta.getCategoria()),
+                receta.getCategoria() != null
+                        ?categoriaMapper.categoriaToCategoriaCreatedDto(receta.getCategoria())
+                        :null,
                 receta.getListaPasos() != null
                         ? receta.getListaPasos()
-                        .stream()
-                        .map(paso -> pasoMapper.pasoToPasoDto(paso))
-                        .toList()
+                            .stream()
+                            .map(paso -> pasoMapper.pasoToPasoCreatedDto(paso))
+                            .toList()
                         : Collections.emptyList()
         );
 

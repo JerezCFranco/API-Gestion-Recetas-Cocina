@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,17 +33,26 @@ public class Paso {
     @JoinColumn(name = "receta_id", nullable = false)
     private Receta receta;
 
+    private String nombre;
+
     private String descripcion;
 
     private int tiempoEstimado;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "paso_ingrediente",
             joinColumns = @JoinColumn(name = "paso_id"),
             inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
-    private List<Ingrediente> ingredientes;
+    private List<Ingrediente> ingredientes = new ArrayList<>();
 
     private boolean esOpcional;
+
+    public void addIngrediente(Ingrediente ingrediente) {
+        if (!this.ingredientes.contains(ingrediente)) {
+            this.ingredientes.add(ingrediente);
+            ingrediente.getPasos().add(this);
+        }
+    }
 }

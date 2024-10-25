@@ -13,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CategoriaMapperImpl implements CategoriaMapper{
 
-    //private final RecetaMapper recetaMapper;
 
     @Override
     public Categoria categoriaDtoToCategoria(CategoriaDto categoriaDto) {

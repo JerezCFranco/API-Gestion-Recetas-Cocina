@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RecetaMapperImpl implements RecetaMapper{
 
-    //private final CategoriaMapper categoriaMapper;
+    private final CategoriaMapper categoriaMapper;
 
     private PasoMapper pasoMapper;
 
@@ -32,7 +32,7 @@ public class RecetaMapperImpl implements RecetaMapper{
         receta.setDescripcion(recetaDto.descripcion());
         receta.setDificultad(recetaDto.dificultad());
         //receta.setCategoria(categoriaMapper.categoriaDtoToCategoria(recetaDto.categoria()));
-        receta.setListaPasos(
+        /*receta.setListaPasos(
                 recetaDto.listaPasos() != null
                         ? recetaDto.listaPasos()
                         .stream()
@@ -40,6 +40,7 @@ public class RecetaMapperImpl implements RecetaMapper{
                         .toList()
                         : Collections.emptyList()
         );
+        */
         return receta;
     }
 
@@ -50,7 +51,7 @@ public class RecetaMapperImpl implements RecetaMapper{
                 receta.getNombre(),
                 receta.getDescripcion(),
                 receta.getDificultad(),
-                null,//categoriaMapper.categoriaToCategoriaDto(receta.getCategoria()),
+                categoriaMapper.categoriaToCategoriaDto(receta.getCategoria()),
                 receta.getListaPasos() != null
                         ? receta.getListaPasos()
                         .stream()
@@ -66,6 +67,8 @@ public class RecetaMapperImpl implements RecetaMapper{
         Receta receta = new Receta();
         receta.setId(UUID.randomUUID());
         receta.setNombre(recetaCreateDto.nombre());
+        receta.setDescripcion(recetaCreateDto.descripcion());
+        receta.setDificultad(recetaCreateDto.dificultad());
         //receta.setCategoria(categoriaMapper.categoriaDtoToCategoria(recetaCreateDto.categoria()));
 
         return receta;

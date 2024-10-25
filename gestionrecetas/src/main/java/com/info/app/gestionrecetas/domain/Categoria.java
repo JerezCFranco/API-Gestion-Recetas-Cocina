@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,5 +31,5 @@ public class Categoria {
     private String nombre;
 
     @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
-    private List<Receta> recetas;
+    private List<Receta> recetas = new ArrayList<>();
 }

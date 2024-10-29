@@ -7,8 +7,6 @@ import com.info.app.gestionrecetas.dto.receta.RecetaDto;
 
 public interface RecetaMapper {
 
-    Receta recetaDtoToReceta(RecetaDto recetaDto);
-
     RecetaDto recetaToRecetaDto(Receta receta);
 
     Receta recetaCreateDtoToReceta(RecetaCreateDto recetaCreateDto);

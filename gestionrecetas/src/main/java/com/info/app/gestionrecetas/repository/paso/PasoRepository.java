@@ -10,6 +10,5 @@ import java.util.UUID;
 public interface PasoRepository extends JpaRepository<Paso, UUID> {
 
     Optional<Paso> findByNombre(String nombre);
-
-    List<Paso> findByRecetaId(UUID idReceta);
+    
 }

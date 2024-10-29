@@ -2,7 +2,6 @@ package com.info.app.gestionrecetas.dto.receta;
 
 import com.info.app.gestionrecetas.domain.enums.DificultadEnum;
 import com.info.app.gestionrecetas.dto.categoria.CategoriaCreatedDto;
-import com.info.app.gestionrecetas.dto.categoria.CategoriaDto;
 import com.info.app.gestionrecetas.dto.paso.PasoCreatedDto;
 
 import java.util.List;

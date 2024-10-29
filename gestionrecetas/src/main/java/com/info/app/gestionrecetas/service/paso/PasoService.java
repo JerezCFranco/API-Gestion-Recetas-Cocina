@@ -17,5 +17,4 @@ public interface PasoService {
 
     Optional<Paso> updatePaso(UUID idPaso, UUID idReceta, PasoUpdatedDto pasoUpdatedDto);
 
-    //List<IngredienteFindDto> getIngredientesByReceta(UUID idReceta, UUID idPaso);
 }

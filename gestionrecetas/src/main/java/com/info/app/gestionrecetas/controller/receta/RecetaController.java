@@ -1,6 +1,6 @@
 package com.info.app.gestionrecetas.controller.receta;
 
-import com.info.app.gestionrecetas.domain.Categoria;
+import com.info.app.gestionrecetas.dto.ingrediente.IngredienteDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreateDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreatedDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaDto;
@@ -43,6 +43,15 @@ public class RecetaController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(recetaDto.get());
+    }
+
+    @GetMapping("/{idReceta}/ingredientes")
+    public ResponseEntity<?> getIngredienteByRecetaYOPaso(
+            @PathVariable("idReceta")UUID idReceta,
+            @RequestParam(value = "idPaso", required = false) UUID idPaso){
+
+        List<IngredienteDto> ingredienteDtos = recetaService.getIngredienteByRecetaYOPaso(idReceta, idPaso);
+        return ResponseEntity.ok(ingredienteDtos);
     }
 
     @PostMapping()

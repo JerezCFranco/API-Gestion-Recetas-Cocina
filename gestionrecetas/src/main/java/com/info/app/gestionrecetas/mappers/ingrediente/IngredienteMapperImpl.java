@@ -2,7 +2,6 @@ package com.info.app.gestionrecetas.mappers.ingrediente;
 
 import com.info.app.gestionrecetas.domain.Ingrediente;
 import com.info.app.gestionrecetas.dto.ingrediente.IngredienteDto;
-import com.info.app.gestionrecetas.dto.ingrediente.IngredienteFindDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -34,18 +33,5 @@ public class IngredienteMapperImpl implements IngredienteMapper{
         );
 
     }
-
-    @Override
-    public IngredienteFindDto ingredienteToIngredienteFindDto(Ingrediente ingrediente) {
-        if(ingrediente == null){
-            return null;
-        }
-
-        return new IngredienteFindDto(
-                ingrediente.getId(),
-                ingrediente.getNombre()
-        );
-    }
-
 
 }

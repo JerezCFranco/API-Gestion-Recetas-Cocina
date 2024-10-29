@@ -1,6 +1,7 @@
 package com.info.app.gestionrecetas.service.receta;
 
 import com.info.app.gestionrecetas.domain.Receta;
+import com.info.app.gestionrecetas.dto.ingrediente.IngredienteDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreateDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreatedDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaDto;
@@ -17,7 +18,7 @@ public interface RecetaService {
 
     Optional<RecetaCreatedDto> createReceta(RecetaCreateDto recetaCreateDto);
 
-
+    List<IngredienteDto> getIngredienteByRecetaYOPaso(UUID idReceta, UUID idPaso);
 
     List<RecetaDto> getAllRecetas(String categoriaNombre);
 

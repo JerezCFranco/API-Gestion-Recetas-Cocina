@@ -22,31 +22,6 @@ public class RecetaMapperImpl implements RecetaMapper{
     private PasoMapper pasoMapper;
 
     @Override
-    public Receta recetaDtoToReceta(RecetaDto recetaDto) {
-        if(recetaDto == null){
-            return null;
-        }
-
-        Receta receta = new Receta();
-        receta.setId(recetaDto.id());
-        receta.setNombre(recetaDto.nombre());
-        receta.setDescripcion(recetaDto.descripcion());
-        receta.setDificultad(recetaDto.dificultad());
-        receta.setTiempoTotal(recetaDto.tiempoTotal());
-        //receta.setCategoria(categoriaMapper.categoriaDtoToCategoria(recetaDto.categoria()));
-        /*receta.setListaPasos(
-                recetaDto.listaPasos() != null
-                        ? recetaDto.listaPasos()
-                        .stream()
-                        .map(pasoDto -> pasoMapper.pasoDtoToPaso(pasoDto))
-                        .toList()
-                        : Collections.emptyList()
-        );
-        */
-        return receta;
-    }
-
-    @Override
     public RecetaDto recetaToRecetaDto(Receta receta) {
         return new RecetaDto(
                 receta.getId(),
@@ -72,7 +47,6 @@ public class RecetaMapperImpl implements RecetaMapper{
         receta.setNombre(recetaCreateDto.nombre());
         receta.setDescripcion(recetaCreateDto.descripcion());
         receta.setDificultad(recetaCreateDto.dificultad());
-        //receta.setCategoria(categoriaMapper.categoriaDtoToCategoria(recetaCreateDto.categoria()));
 
         return receta;
 

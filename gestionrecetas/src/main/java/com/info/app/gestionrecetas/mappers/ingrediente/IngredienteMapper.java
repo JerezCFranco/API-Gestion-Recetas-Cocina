@@ -10,6 +10,4 @@ public interface IngredienteMapper {
 
     IngredienteDto ingredienteToIngredienteDto(Ingrediente ingrediente);
 
-    IngredienteFindDto ingredienteToIngredienteFindDto(Ingrediente ingrediente);
-
 }

@@ -3,10 +3,8 @@ package com.info.app.gestionrecetas.service.paso;
 import com.info.app.gestionrecetas.domain.Ingrediente;
 import com.info.app.gestionrecetas.domain.Paso;
 import com.info.app.gestionrecetas.domain.Receta;
-import com.info.app.gestionrecetas.dto.ingrediente.IngredienteFindDto;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
 import com.info.app.gestionrecetas.dto.paso.PasoUpdatedDto;
-import com.info.app.gestionrecetas.mappers.ingrediente.IngredienteMapper;
 import com.info.app.gestionrecetas.mappers.paso.PasoMapper;
 import com.info.app.gestionrecetas.repository.paso.PasoRepository;
 import com.info.app.gestionrecetas.repository.receta.RecetaRepository;
@@ -16,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,8 +28,6 @@ public class PasoServiceImpl implements PasoService{
     private RecetaRepository recetaRepository;
 
     private IngredienteService ingredienteService;
-
-    private IngredienteMapper ingredienteMapper;
 
     @Override
     public PasoDto createPaso(PasoDto pasoDto) {
@@ -103,24 +98,4 @@ public class PasoServiceImpl implements PasoService{
 
     }
 
-    /*@Override
-    public List<IngredienteFindDto> getIngredientesByReceta(UUID idReceta, UUID idPaso) {
-        if(idPaso != null){
-            Optional<Paso> pasoOpt = pasoRepository.findById(idPaso);
-            if(pasoOpt.isPresent() && pasoOpt.get().getReceta().getId().equals(idReceta)){
-                return pasoOpt.get().getIngredientes()
-                        .stream()
-                        .map(ingredienteMapper::ingredienteToIngredienteFindDto)
-                        .toList();
-            }else {
-                throw new NoSuchElementException("Paso no encontrado o no pertenece a la receta");
-            }
-        }else{
-            return pasoRepository.findByRecetaId(idReceta)
-                    .stream()
-                    .flatMap(paso -> paso.getIngredientes().stream())
-                    .map(ingredienteMapper::ingredienteToIngredienteFindDto)
-                    .collect(Collectors.toList());
-        }
-    }*/
 }

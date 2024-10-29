@@ -8,7 +8,6 @@ import com.info.app.gestionrecetas.mappers.ingrediente.IngredienteMapper;
 import com.info.app.gestionrecetas.service.ingrediente.IngredienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.UUID;
 

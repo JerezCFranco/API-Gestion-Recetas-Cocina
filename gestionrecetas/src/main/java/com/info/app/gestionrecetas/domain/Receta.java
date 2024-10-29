@@ -34,6 +34,8 @@ public class Receta {
     @Column(length = 5000)
     private String descripcion;
 
+    private int tiempoTotal;
+
     private DificultadEnum dificultad;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -11,6 +11,6 @@ import java.util.UUID;
 
 public interface RecetaRepository extends JpaRepository <Receta, UUID> {
 
-    @Query("SELECT r FROM Receta r WHERE r.categoria = :categoria")
-    List<Receta> findBycategoriaLike(@Param("categoria")Categoria categoria);
+    @Query("SELECT r FROM Receta r JOIN r.categoria c WHERE c.nombre = :categoria")
+    List<Receta> findBycategoriaLike(@Param("categoria")String ctgNombre);
 }

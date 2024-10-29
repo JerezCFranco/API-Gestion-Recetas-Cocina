@@ -24,10 +24,10 @@ public class RecetaController {
 
     @GetMapping()
     public List<RecetaDto> getAllRecetas(
-            @RequestParam(required = false, name = "categoria")String categoria
+            @RequestParam(required = false, name = "ctgNombre")String ctgNombre
     ){
 
-        return recetaService.getAllRecetas(categoria);
+        return recetaService.getAllRecetas(ctgNombre);
     }
 
     @GetMapping("/{idReceta}")

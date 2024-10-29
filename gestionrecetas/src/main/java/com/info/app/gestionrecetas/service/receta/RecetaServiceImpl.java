@@ -53,27 +53,22 @@ public class RecetaServiceImpl implements RecetaService{
     }
 
     @Override
-    public List<RecetaDto> getAllRecetas(String categoriaNombre) {
+    public List<RecetaDto> getAllRecetas(String ctgNombre) {
 
-        if(StringUtils.hasText(categoriaNombre)){
-            Optional<Categoria> categoriaOpt = categoriaService.findCategoriaByNombre(categoriaNombre);
-            if(categoriaOpt.isPresent()){
-                Categoria categoria = categoriaOpt.get();
-                return recetaRepository.findBycategoriaLike(categoria)
+        if(StringUtils.hasText(ctgNombre)){
+            Optional<Categoria> categoriaOpt = categoriaService.findCategoriaByNombre(ctgNombre);
+            if (categoriaOpt.isPresent()){
+                return recetaRepository.findBycategoriaLike(categoriaOpt.get().getNombre())
                         .stream()
-                        .map(receta -> recetaMapper.recetaToRecetaDto(receta))
+                        .map(recetaMapper::recetaToRecetaDto)
                         .toList();
             }
-        }else {
-            return recetaRepository.findAll().stream()
-                    .map( receta -> recetaMapper.recetaToRecetaDto(receta))
-                    .toList();
         }
 
-        return recetaRepository.findAll().stream()
-                .map( receta -> recetaMapper.recetaToRecetaDto(receta))
+        return recetaRepository.findAll()
+                .stream()
+                .map(recetaMapper::recetaToRecetaDto)
                 .toList();
-
     }
 
     @Override

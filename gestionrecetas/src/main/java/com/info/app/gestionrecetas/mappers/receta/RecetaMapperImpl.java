@@ -1,5 +1,6 @@
 package com.info.app.gestionrecetas.mappers.receta;
 
+import com.info.app.gestionrecetas.domain.Paso;
 import com.info.app.gestionrecetas.domain.Receta;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreateDto;
 import com.info.app.gestionrecetas.dto.receta.RecetaCreatedDto;
@@ -31,6 +32,7 @@ public class RecetaMapperImpl implements RecetaMapper{
         receta.setNombre(recetaDto.nombre());
         receta.setDescripcion(recetaDto.descripcion());
         receta.setDificultad(recetaDto.dificultad());
+        receta.setTiempoTotal(recetaDto.tiempoTotal());
         //receta.setCategoria(categoriaMapper.categoriaDtoToCategoria(recetaDto.categoria()));
         /*receta.setListaPasos(
                 recetaDto.listaPasos() != null
@@ -51,6 +53,7 @@ public class RecetaMapperImpl implements RecetaMapper{
                 receta.getNombre(),
                 receta.getDescripcion(),
                 receta.getDificultad(),
+                calcularTiempoTotal(receta),
                 categoriaMapper.categoriaToCategoriaCreatedDto(receta.getCategoria()),
                 receta.getListaPasos() != null
                         ? receta.getListaPasos()
@@ -94,5 +97,13 @@ public class RecetaMapperImpl implements RecetaMapper{
                         : Collections.emptyList()
         );
 
+    }
+
+    private int calcularTiempoTotal(Receta receta){
+        return receta.getListaPasos()
+                .stream()
+                .filter(paso -> !paso.isEsOpcional())
+                .mapToInt(Paso::getTiempoEstimado)
+                .sum();
     }
 }

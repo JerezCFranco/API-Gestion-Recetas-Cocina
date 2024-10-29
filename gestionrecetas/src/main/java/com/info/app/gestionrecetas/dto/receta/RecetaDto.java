@@ -13,6 +13,7 @@ public record RecetaDto(
         String nombre,
         String descripcion,
         DificultadEnum dificultad,
+        int tiempoTotal,
         CategoriaCreatedDto categoria,
         List<PasoCreatedDto> listaPasos
 ) {

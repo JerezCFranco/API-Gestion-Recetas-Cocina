@@ -26,7 +26,6 @@ public class IngredienteServiceImpl implements IngredienteService{
             return existIngrediente.get();
         } else {
             Ingrediente createIngrediente = ingredienteMapper.ingredienteDtoToIngrediente(ingredienteDto);
-            //Ingrediente createIngrediente = ingredienteMapper.ingredienteDtoToIngrediente(ingredienteDto);
             return ingredienteRepository.save(createIngrediente);
         }
     }

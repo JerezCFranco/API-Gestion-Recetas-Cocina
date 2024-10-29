@@ -7,7 +7,7 @@ import java.util.List;
 public record PasoUpdatedDto(
         String descripcion,
         int tiempoEstimado,
-        List<IngredienteDto> ingredientes,
-        boolean esOpcional
+        boolean esOpcional,
+        List<IngredienteDto> ingredientes
 ) {
 }

@@ -3,6 +3,7 @@ package com.info.app.gestionrecetas.service.paso;
 import com.info.app.gestionrecetas.domain.Ingrediente;
 import com.info.app.gestionrecetas.domain.Paso;
 import com.info.app.gestionrecetas.domain.Receta;
+import com.info.app.gestionrecetas.dto.ingrediente.IngredienteFindDto;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
 import com.info.app.gestionrecetas.dto.paso.PasoUpdatedDto;
 import com.info.app.gestionrecetas.mappers.ingrediente.IngredienteMapper;
@@ -14,10 +15,8 @@ import com.info.app.gestionrecetas.service.receta.RecetaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -89,6 +88,13 @@ public class PasoServiceImpl implements PasoService{
                 paso.setTiempoEstimado(pasoUpdatedDto.tiempoEstimado());
                 paso.setEsOpcional(pasoUpdatedDto.esOpcional());
 
+                List<Ingrediente> nuevosIngredientes = pasoUpdatedDto.ingredientes()
+                        .stream()
+                        .map(ingredienteDto -> ingredienteService.findOrCreateIngrediente(ingredienteDto))
+                        .toList();
+                paso.getIngredientes().clear();
+                paso.getIngredientes().addAll(nuevosIngredientes);
+
                 return Optional.of(pasoRepository.save(paso));
             }
 
@@ -96,4 +102,25 @@ public class PasoServiceImpl implements PasoService{
         return Optional.empty();
 
     }
+
+    /*@Override
+    public List<IngredienteFindDto> getIngredientesByReceta(UUID idReceta, UUID idPaso) {
+        if(idPaso != null){
+            Optional<Paso> pasoOpt = pasoRepository.findById(idPaso);
+            if(pasoOpt.isPresent() && pasoOpt.get().getReceta().getId().equals(idReceta)){
+                return pasoOpt.get().getIngredientes()
+                        .stream()
+                        .map(ingredienteMapper::ingredienteToIngredienteFindDto)
+                        .toList();
+            }else {
+                throw new NoSuchElementException("Paso no encontrado o no pertenece a la receta");
+            }
+        }else{
+            return pasoRepository.findByRecetaId(idReceta)
+                    .stream()
+                    .flatMap(paso -> paso.getIngredientes().stream())
+                    .map(ingredienteMapper::ingredienteToIngredienteFindDto)
+                    .collect(Collectors.toList());
+        }
+    }*/
 }

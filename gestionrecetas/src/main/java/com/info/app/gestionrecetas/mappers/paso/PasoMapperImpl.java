@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -33,7 +32,7 @@ public class PasoMapperImpl implements PasoMapper{
         List<Ingrediente> listaIngrediente = pasoDto.ingredientes()
                 .stream()
                 .map(ingredienteService::findOrCreateIngrediente)
-                .collect(Collectors.toList());
+                .toList();
 
         pasoCreate.setIngredientes(listaIngrediente);
         pasoCreate.setEsOpcional(pasoDto.esOpcional());
@@ -55,7 +54,7 @@ public class PasoMapperImpl implements PasoMapper{
                 paso.getIngredientes()
                         .stream()
                         .map(ingredienteMapper::ingredienteToIngredienteDto)
-                        .collect(Collectors.toList()),
+                        .toList(),
                 paso.isEsOpcional(),
                 paso.getReceta().getId()
         );
@@ -71,7 +70,7 @@ public class PasoMapperImpl implements PasoMapper{
                 paso.getIngredientes()
                         .stream()
                         .map(ingredienteMapper::ingredienteToIngredienteDto)
-                        .collect(Collectors.toList()),
+                        .toList(),
                 paso.isEsOpcional(),
                 paso.getReceta().getId()
         );

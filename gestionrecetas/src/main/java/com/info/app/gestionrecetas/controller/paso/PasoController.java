@@ -2,6 +2,7 @@ package com.info.app.gestionrecetas.controller.paso;
 
 
 import com.info.app.gestionrecetas.domain.Paso;
+import com.info.app.gestionrecetas.dto.ingrediente.IngredienteFindDto;
 import com.info.app.gestionrecetas.dto.paso.PasoDto;
 import com.info.app.gestionrecetas.dto.paso.PasoUpdatedDto;
 import com.info.app.gestionrecetas.mappers.paso.PasoMapper;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,4 +62,12 @@ public class PasoController {
                         .body(pasoDto));
 
     }
+
+    /*@GetMapping("receta/{idReceta}/ingredientes")
+    public ResponseEntity<List<IngredienteFindDto>> getIngredientesByReceta(
+            @PathVariable UUID idReceta,
+            @RequestParam(required = false)UUID idPaso
+    ){
+        List<IngredienteFindDto> ingredientesList = pasoService.getIngredientesByReceta()
+    }*/
 }
